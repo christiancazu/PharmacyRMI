@@ -1,0 +1,14 @@
+[
+    {
+        "id": "1",
+        "name": "A FOLIC",
+        "price": "55.00",
+        "stock": "58"
+    },
+    {
+        "id": "2",
+        "name": "AB AMBROMOX",
+        "price": "33.00",
+        "stock": "67"
+    }
+]

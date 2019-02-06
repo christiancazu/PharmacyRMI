@@ -7,17 +7,12 @@ import java.io.Serializable;
  * @author Christian
  */
 public class Product implements Serializable {
+    private int id;
     private String name;
     private double price;
     private int stock;
     
-    public Product() {
-        
-    }
-    public Product(String name, double price, int stock) {
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
+    public Product() {        
     }
 
     /**
@@ -61,4 +56,18 @@ public class Product implements Serializable {
     public void setStock(int stock) {
         this.stock = stock;
     }    
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 }
