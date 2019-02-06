@@ -19,31 +19,39 @@ public class ClientRMI {
         Scanner scan = new Scanner(System.in);
         ProductService productService;
         String serverIpAddress = "localhost";
-        int serverPort = 8888, id;
+        int serverPort = 8888, i, selectedId, quantify;
         try {
             Registry registry = LocateRegistry.getRegistry(serverIpAddress, serverPort);
             productService = (ProductService) (registry.lookup("ServerRMI"));        
+            
+            List<Product> products = null;
             do {       
                 System.out.println(productService.showMenu());
                 
-                System.out.println("Find product name : ...");
-                List<Product> products = productService.findProduct(scan.nextLine());
+                System.out.println("Find product name: ");
+                products = productService.findProduct(scan.next());
                 
-                id = 1;
+                i = 1;
                 if (products.size() == 0) {
                     System.out.println("No products found ...");
                 } else {
                     for(Product product : products){
-                    System.out.print(id++ + "- " + 
+                    System.out.print(i++ + "- " + 
                             product.getName()+ "\t\t" + 
                             product.getPrice() + "\t" + 
                             product.getStock());
                     System.out.println();
-                    for (int i = 0; i < 48; i++) {
+                    for (int j = 0; j < 48; j++) {
                         System.out.print("-");
                     }
                     System.out.println();
                     }
+                    System.out.println("Choose product id: ");
+                    selectedId = scan.nextInt();
+                    System.out.println("Choose quantify: ");
+                    quantify = scan.nextInt();
+                    productService.buyProduct(products.get(selectedId - 1).getId(), quantify);
+                                        
                 }
                 
             } while (true);
