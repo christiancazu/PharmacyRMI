@@ -1,0 +1,12 @@
+[
+    {
+        "name": "panadol",
+        "price": "2.00",
+        "stock": "100"
+    },
+    {
+        "name": "buscapina",
+        "price": "1.50",
+        "stock": "80"
+    }
+]
