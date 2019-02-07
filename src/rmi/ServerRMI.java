@@ -35,7 +35,7 @@ public class ServerRMI extends UnicastRemoteObject implements ProductService {
     public ServerRMI() throws RemoteException {}
     
     public static void main(String[] args) throws RemoteException {
-         //write();
+       
         (new ServerRMI()).InitServer();
            
     }
@@ -49,6 +49,24 @@ public class ServerRMI extends UnicastRemoteObject implements ProductService {
         } catch (UnknownHostException | RemoteException | AlreadyBoundException e) {
         }
     }   
+    
+    private FileReader getDataPath() throws FileNotFoundException {
+        return new FileReader(DATAPATH);
+    } 
+    
+    private List<Product> getProducts() {
+        Gson gson = new Gson();
+                 
+        TypeToken<List<Product>> token = new TypeToken<List<Product>>() {};
+        ArrayList<Product> products = null;
+        
+        try {
+            products = gson.fromJson(getDataPath(), token.getType());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ServerRMI.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return products;
+    }
       
     @Override
     public List<Product> findProduct(String toFind) throws RemoteException {
@@ -88,44 +106,15 @@ public class ServerRMI extends UnicastRemoteObject implements ProductService {
             }
         } 
         String strJson = gson.toJson(products);
-        try { //write converted json data to a file named "CountryGSON.json"
+        try { 
             FileWriter writer = new FileWriter(DATAPATH);
-            writer.write(strJson);           
+            writer.write(strJson);  
+            writer.close();
 
        } catch (IOException e) {
        }
         
         return true;
     }
-    
-    private FileReader getDataPath() throws FileNotFoundException {
-        return new FileReader(DATAPATH);
-    } 
-    
-    private List<Product> getProducts() {
-        Gson gson = new Gson();
-                 
-        TypeToken<List<Product>> token = new TypeToken<List<Product>>() {};
-        ArrayList<Product> products = null;
-        
-        try {
-            products = gson.fromJson(getDataPath(), token.getType());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ServerRMI.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        return products;
-    }
-    
-    private static void write() {
-        Gson gson = new Gson();
-        /*Gson gson = new GsonBuilder().create();
-        gson.toJson(users, writer);*/
-        String strJson = gson.toJson("qwe");
-        try { //write converted json data to a file named "CountryGSON.json"
-            FileWriter writer = new FileWriter("D:/Netbeans/Projects/PharmacyRMI/src/data/datax.json");
-            writer.write(strJson);           
-
-       } catch (IOException e) {
-       }
-    }
+     
 }

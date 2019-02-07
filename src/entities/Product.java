@@ -12,8 +12,7 @@ public class Product implements Serializable {
     private double price;
     private int stock;
     
-    public Product() {        
-    }
+    public Product() {}
 
     /**
      * @return the name

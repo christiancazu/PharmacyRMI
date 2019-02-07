@@ -37,8 +37,7 @@ public class ClientRMI {
                 } else {
                     for(Product product : products){
                     System.out.print(i++ + "- " + 
-                            product.getName()+ "\t\t" + 
-                            product.getPrice() + "\t" + 
+                            product.getName()+ "\t\t" +
                             product.getStock());
                     System.out.println();
                     for (int j = 0; j < 48; j++) {
@@ -50,7 +49,13 @@ public class ClientRMI {
                     selectedId = scan.nextInt();
                     System.out.println("Choose quantify: ");
                     quantify = scan.nextInt();
-                    productService.buyProduct(products.get(selectedId - 1).getId(), quantify);
+                    
+                    if (productService.buyProduct(products.get(selectedId - 1).getId(), quantify)) {
+                        System.out.println("purchase completed !!!");
+                    }
+                    else {
+                        System.out.println("The product no exists or haven`t in stock");
+                    }
                                         
                 }
                 
